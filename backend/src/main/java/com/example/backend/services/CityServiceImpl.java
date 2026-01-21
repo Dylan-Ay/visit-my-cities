@@ -28,18 +28,33 @@ public class CityServiceImpl implements ICityService{
 
     @Override
     public City getCityById(Long id) {
-        return this.cityRepository.findById(id).orElseThrow(() ->new CityNotFoundException(id));
+        return this.cityRepository.findById(id).orElseThrow(() ->new CityNotFoundException("Ville non trouvé."));
     }
-
-
 
     @Override
     public City updateCity(Long id, City city) {
-        return null;
+        City cityExisted = getCityById(id);
+        if(city.getName() != null){
+            cityExisted.setName(city.getName());
+        }
+       if(city.getCountry() != null){
+           cityExisted.setCountry(city.getCountry());
+       }
+       if(city.getDescription() != null){
+           cityExisted.setDescription(city.getDescription());
+       }
+       if(city.getPostalCode() != null){
+           cityExisted.setPostalCode(city.getPostalCode());
+       }
+       return this.cityRepository.save(cityExisted);
+
     }
 
     @Override
     public void deleteCity(Long id) {
+
+        City cityToDelete = getCityById(id);
+        this.cityRepository.delete(cityToDelete);
 
     }
 }

@@ -26,4 +26,22 @@ public class CityController {
     public ResponseEntity<List<City>> getAllCities(){
         return new ResponseEntity<>(this.cityServiceImpl.getAllCities(), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<City> getCityById(@PathVariable Long id){
+        return new ResponseEntity<>(this.cityServiceImpl.getCityById(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCityById(@PathVariable Long id){
+         this.cityServiceImpl.deleteCity(id);
+         return  ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<City> updateCity(@PathVariable Long id, @RequestBody City city){
+
+        return new ResponseEntity<>(this.cityServiceImpl.updateCity(id, city), HttpStatus.OK);
+
+    }
 }
