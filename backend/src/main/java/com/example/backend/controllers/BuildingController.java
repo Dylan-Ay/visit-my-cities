@@ -27,9 +27,29 @@ public class BuildingController {
         return new ResponseEntity<>(this.buildingServiceImpl.getAllBuildings(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<List<Building>> getBuildingsByCityId(@PathVariable Long id){
         return new ResponseEntity<>(this.buildingServiceImpl.getBuildingsByCityId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<Building>> getBuildingsByCityName(@PathVariable String name){
+        return new ResponseEntity<>(this.buildingServiceImpl.getBuildingsByCityName(name), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteBuilding(@PathVariable Long id){
+        this.buildingServiceImpl.deleteBuilding(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Building> getBuildingById(@PathVariable Long id){
+        return new ResponseEntity<>(this.buildingServiceImpl.getBuildingById(id),HttpStatus.OK);
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Building> updateBuilding(@PathVariable Long id, @RequestBody Building building){
+        return new ResponseEntity<>(this.buildingServiceImpl.updateBuilding(id,building), HttpStatus.OK);
     }
 
 }

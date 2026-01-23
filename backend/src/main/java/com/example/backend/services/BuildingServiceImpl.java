@@ -20,6 +20,11 @@ public class BuildingServiceImpl implements IBuildingService{
     }
 
     @Override
+    public Building getBuildingById(Long id) {
+        return this.buildingRepository.findById(id).orElseThrow(() -> new BuildingNotFoundException("Aucun batiment trouvé avec cette id."));
+    }
+
+    @Override
     public List<Building> getAllBuildings() {
         return this.buildingRepository.findAll();
     }
@@ -35,16 +40,34 @@ public class BuildingServiceImpl implements IBuildingService{
 
     @Override
     public List<Building> getBuildingsByCityName(String name) {
-        return List.of();
+        List<Building> buildings = this.buildingRepository.findByCityName(name);
+        if(buildings.isEmpty()){
+            throw new BuildingNotFoundException("Aucun batiment trouvé avce " + name);
+        }
+        return buildings;
     }
 
     @Override
     public Building updateBuilding(Long id, Building building) {
-        return null;
+        Building buildingToUpdate = getBuildingById(id);
+        if(building.getName() != null){
+            buildingToUpdate.setName(building.getName());
+        }
+        if(building.getDescription() != null){
+            buildingToUpdate.setDescription(building.getDescription());
+        }
+        if(building.getYearConstruction() != null){
+            buildingToUpdate.setYearConstruction(building.getYearConstruction());
+        }
+        if(building.getCity() != null){
+            buildingToUpdate.setCity(building.getCity());
+        }
+        return this.buildingRepository.save(buildingToUpdate);
     }
 
     @Override
     public void deleteBuilding(Long id) {
-
+      Building buildingToDelete = this.buildingRepository.findById(id).orElseThrow(() -> new BuildingNotFoundException("Batiment non trouvé."));
+        this.buildingRepository.delete(buildingToDelete);
     }
 }
