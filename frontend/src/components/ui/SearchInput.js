@@ -1,7 +1,7 @@
 import { View, TextInput, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function SearchInput({ placeholder }) {
+export const SearchInput = ({ placeholder }) => {
   return (
     <View style={styles.inputContainer}>
       <Ionicons name="search-outline" style={styles.icon}/>

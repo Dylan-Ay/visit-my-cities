@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 
-export const HeaderTitle = ({ text }) => {
+export const HeaderTitle = ({ children }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.headerTitle}>{text}</Text>
+      <Text style={styles.headerTitle}>{children}</Text>
     </View>
   )
 }
