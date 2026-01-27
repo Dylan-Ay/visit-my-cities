@@ -1,16 +1,14 @@
 import { View, StyleSheet } from "react-native"
-import { SectionTitle, HorizontalList, CityCard } from "../ui"
+import { SectionTitle, HorizontalList } from "../ui"
 
-export default function PopularSection ({ cities }) {
+export default function PopularSection ({ title, data, renderItem }) {
    return (
       <View style={styles.container}>
-         <SectionTitle>Villes populaires</SectionTitle>
+         <SectionTitle>{title}</SectionTitle>
 
          <HorizontalList
-            data={cities}
-            renderItem={({ item }) => (
-               <CityCard city={item} />
-            )}
+            data={data}
+            renderItem={renderItem}
             keyExtractor={(item) => item.id}
          />
       </View>
